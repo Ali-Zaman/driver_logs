@@ -1,0 +1,19 @@
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+db.sqlite3
+.env
+
+# Node
+node_modules/
+dist/
+*.local
+
+# Vercel
+.vercel/
