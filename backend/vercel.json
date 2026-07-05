@@ -1,4 +1,0 @@
-{
-  "builds": [{ "src": "driver_logs/wsgi.py", "use": "@vercel/python" }],
-  "routes": [{ "src": "/(.*)", "dest": "driver_logs/wsgi.py" }]
-}

@@ -61,12 +61,14 @@ cd backend && python manage.py test trips
 
 ## Deployment
 
-Both apps deploy to Vercel as separate projects:
+The repo deploys to Vercel as a single project with two services (root `vercel.json`):
+the Vite frontend serves `/` and the Django backend serves `/api/*` on the same domain,
+so production needs no CORS setup and no `VITE_API_URL`.
 
-- **backend/** — uses `@vercel/python` (see `backend/vercel.json`). Set the env vars from
-  `backend/.env.example`; the database is Supabase Postgres (use the transaction pooler
-  URL, port 6543, since the runtime is serverless).
-- **frontend/** — standard Vite static build. Set `VITE_API_URL` to the backend URL.
+1. Import the repo on Vercel — both services are detected from `vercel.json`.
+2. Set env vars: `SECRET_KEY`, `DEBUG=false`, `ALLOWED_HOSTS=.vercel.app`, and
+   `DATABASE_URL` (Supabase transaction pooler, port 6543 — the runtime is serverless).
+3. Run migrations from your machine: `DATABASE_URL=... python manage.py migrate`.
 
 ## Assumptions
 
