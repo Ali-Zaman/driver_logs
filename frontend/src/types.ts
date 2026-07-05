@@ -57,6 +57,7 @@ export interface TripSummary {
   starts_at: string
   ends_at: string
   days: number
+  timezone: string
 }
 
 export interface TripPlan {
@@ -94,4 +95,5 @@ export interface TripInput {
   dropoff_location: string
   cycle_used_hours: number
   start_time?: string
+  timezone_name?: string
 }

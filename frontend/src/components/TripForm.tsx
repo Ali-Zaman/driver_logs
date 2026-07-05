@@ -14,6 +14,12 @@ import { useNavigate } from 'react-router-dom'
 import { ApiError, createTrip } from '../api'
 import LocationField from './LocationField'
 
+function localNowRoundedIso(): string {
+  const now = new Date()
+  now.setMinutes(now.getMinutes() + (15 - (now.getMinutes() % 15)), 0, 0)
+  return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
+}
+
 export default function TripForm() {
   const navigate = useNavigate()
   const [current, setCurrent] = useState('')
@@ -35,7 +41,8 @@ export default function TripForm() {
         pickup_location: pickup,
         dropoff_location: dropoff,
         cycle_used_hours: cycleUsed,
-        ...(startTime && { start_time: startTime }),
+        start_time: startTime || localNowRoundedIso(),
+        timezone_name: Intl.DateTimeFormat().resolvedOptions().timeZone,
       })
       navigate(`/trips/${trip.id}`)
     } catch (err) {

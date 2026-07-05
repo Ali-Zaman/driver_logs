@@ -22,6 +22,7 @@ def build_plan(
     dropoff_location: str,
     cycle_used_hours: float,
     start_time: datetime | None = None,
+    timezone_name: str = "",
 ) -> dict:
     current = geocode(current_location)
     pickup = geocode(pickup_location)
@@ -51,6 +52,8 @@ def build_plan(
             "starts_at": segments[0].start.isoformat(),
             "ends_at": segments[-1].end.isoformat(),
             "days": len(logs),
+            # All plan times are home-terminal wall-clock; this names it.
+            "timezone": timezone_name or "UTC",
         },
         "markers": {"current": current, "pickup": pickup, "dropoff": dropoff},
         "route": {"geometry": geometry},

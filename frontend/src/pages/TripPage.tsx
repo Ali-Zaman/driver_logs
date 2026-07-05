@@ -72,6 +72,7 @@ export default function TripPage() {
           <Typography variant="body2" color="text.secondary">
             Departs {formatDay(plan.summary.starts_at)} · {formatClock(plan.summary.starts_at)} · cycle
             used {trip.cycle_used_hours}h
+            {plan.summary.timezone && ` · ${plan.summary.timezone.replace('_', ' ')} time`}
           </Typography>
         </Box>
         <Button

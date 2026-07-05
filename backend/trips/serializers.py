@@ -9,6 +9,7 @@ class TripInputSerializer(serializers.Serializer):
     dropoff_location = serializers.CharField(max_length=255)
     cycle_used_hours = serializers.FloatField(min_value=0, max_value=70)
     start_time = serializers.DateTimeField(required=False, default=None)
+    timezone_name = serializers.CharField(required=False, default="", allow_blank=True)
 
     def validate_start_time(self, value):
         return value.replace(tzinfo=None) if value else None
